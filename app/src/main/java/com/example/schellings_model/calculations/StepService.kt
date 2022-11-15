@@ -8,9 +8,11 @@ import kotlin.random.Random
  */
 class StepService {
     companion object {
+
+        @Synchronized
         fun makeStep(
             grid: Array<IntArray>, sideLength: Int
-        ) {
+        ): Pair<Triple<Int, Int, Int>, Triple<Int, Int, Int>> {
             var equalNeighboursCount = Int.MAX_VALUE
             var x1 = Int.MAX_VALUE
             var y1 = Int.MAX_VALUE
@@ -40,16 +42,8 @@ class StepService {
             grid[x2][y2] = color
             grid[x1][y1] = Color.WHITE
 
+            return Pair(Triple(x1, y1, Color.WHITE), Triple(x2, y2, color))
         }
-
-        fun makeSteps(
-            grid: Array<IntArray>, sideLength: Int, count: Int
-        ) {
-            for (i in 0 until count) {
-                makeStep(grid, sideLength)
-            }
-        }
-
 
         private fun calculateEqualNeighbours(
             grid: Array<IntArray>, x: Int, y: Int
@@ -57,14 +51,14 @@ class StepService {
             var equalNeighboursCount = 8
             val color = grid[x][y]
 
-            equalNeighboursCount += countNeighbour(grid, x - 1, y - 1, color);
-            equalNeighboursCount += countNeighbour(grid, x - 1, y + 0, color);
-            equalNeighboursCount += countNeighbour(grid, x - 1, y + 1, color);
-            equalNeighboursCount += countNeighbour(grid, x + 0, y + 1, color);
-            equalNeighboursCount += countNeighbour(grid, x + 1, y + 1, color);
-            equalNeighboursCount += countNeighbour(grid, x + 1, y + 0, color);
-            equalNeighboursCount += countNeighbour(grid, x - 1, y + 1, color);
-            equalNeighboursCount += countNeighbour(grid, x + 0, y - 1, color);
+            equalNeighboursCount += countNeighbour(grid, x - 1, y - 1, color)
+            equalNeighboursCount += countNeighbour(grid, x - 1, y + 0, color)
+            equalNeighboursCount += countNeighbour(grid, x - 1, y + 1, color)
+            equalNeighboursCount += countNeighbour(grid, x + 0, y + 1, color)
+            equalNeighboursCount += countNeighbour(grid, x + 1, y + 1, color)
+            equalNeighboursCount += countNeighbour(grid, x + 1, y + 0, color)
+            equalNeighboursCount += countNeighbour(grid, x - 1, y + 1, color)
+            equalNeighboursCount += countNeighbour(grid, x + 0, y - 1, color)
 
             return equalNeighboursCount
         }
