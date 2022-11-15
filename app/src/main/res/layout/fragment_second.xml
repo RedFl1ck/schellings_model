@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
+
+        <Button
+            android:id="@+id/button_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Run"
+            app:layout_constraintEnd_toStartOf="@id/seek_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:min="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_step"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/button_step"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/button_step"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar" />
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Steps:"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/button_step"
+            app:layout_constraintEnd_toStartOf="@id/text_count"
+            app:layout_constraintTop_toBottomOf="@id/seek_bar" />
+
+
+        <TableLayout
+            android:id="@+id/field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_step">
+
+        </TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

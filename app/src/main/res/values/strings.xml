@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">schellings_model</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Schelling\'s Model</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="error_empty">Field cannot be empty</string>
+    <string name="error_invalid_size">Size must be 10–100</string>
+</resources>
