@@ -12,19 +12,20 @@ class StepService {
         @Synchronized
         fun makeStep(
             grid: Array<IntArray>, sideLength: Int
-        ): Pair<Triple<Int, Int, Int>, Triple<Int, Int, Int>> {
-            var equalNeighboursCount = Int.MAX_VALUE
-            var x1 = Int.MAX_VALUE
-            var y1 = Int.MAX_VALUE
+        ): Pair<Triple<Int, Int, Int>, Triple<Int, Int, Int>>? {
 
             // find random "unhappy" cell
-            while (equalNeighboursCount > 1) {
-                x1 = Random.nextInt(0, sideLength)
-                y1 = Random.nextInt(0, sideLength)
-                if (grid[x1][y1] != Color.WHITE) {
-                    equalNeighboursCount = calculateEqualNeighbours(grid, x1, y1)
+            val unhappyCells = mutableListOf<Pair<Int, Int>>()
+            for (x in 0 until sideLength) {
+                for (y in 0 until sideLength) {
+                    if (grid[x][y] != Color.WHITE && calculateEqualNeighbours(grid, x, y) < 2)
+                        unhappyCells.add(x to y)
                 }
             }
+            if (unhappyCells.isEmpty()) {
+                return null
+            }
+            val pairUnhappy = unhappyCells[Random.nextInt(0, unhappyCells.size)]
 
             // find random "empty" cell
             val emptyCells = mutableListOf<Pair<Int, Int>>()
@@ -33,9 +34,13 @@ class StepService {
                     if (grid[x][y] == Color.WHITE) emptyCells.add(x to y)
                 }
             }
-            val pair = emptyCells[Random.nextInt(0, emptyCells.size)]
-            val x2 = pair.first
-            val y2 = pair.second
+            val pairEmpty = emptyCells[Random.nextInt(0, emptyCells.size)]
+
+            // get data
+            val x1 = pairUnhappy.first
+            val y1 = pairUnhappy.second
+            val x2 = pairEmpty.first
+            val y2 = pairEmpty.second
             val color = grid[x1][y1]
 
             // swipe

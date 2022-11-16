@@ -11,14 +11,16 @@ import androidx.fragment.app.Fragment
 import com.example.schellings_model.calculations.GridService
 import com.example.schellings_model.calculations.StepService
 import com.example.schellings_model.databinding.FragmentSecondBinding
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class SecondFragment : Fragment() {
 
-    var SIDE_LENGTH = 50
+    var SIDE_LENGTH = 100
     var COLORED_CELLS_PERCENTAGE = 45
+
     @Volatile
     lateinit var grid: Array<IntArray>
 
@@ -56,9 +58,15 @@ class SecondFragment : Fragment() {
             binding.buttonStep.isEnabled = false
             for (i in 0 until binding.seekBar.progress) {
                 val data = StepService.makeStep(grid, SIDE_LENGTH)
-                updateTable(data)
+
+                if (data != null) {
+                    updateTable(data)
+                    binding.buttonStep.isEnabled = true
+                } else {
+                    val mySnackbar = Snackbar.make(view, "No more unhappy cells", 1000)
+                    mySnackbar.show()
+                }
             }
-            binding.buttonStep.isEnabled = true
         }
 
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
